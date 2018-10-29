@@ -5,6 +5,7 @@ const chalk = require("chalk");
 const createServer = require("fs-remote/createServer");
 const makeClientBundle = require("./makeClientBundle");
 const serveJs = require("./serveJs");
+const indexHtmlTemplate = require("./indexHtmlTemplate");
 const argv = require("yargs")
   .option("fs-port", {
     demandOption: true,
@@ -57,7 +58,12 @@ async function main() {
 
   const httpServerSpinner = ora("Starting HTTP server...").start();
   try {
-    const fileServer = http.createServer(serveJs(clientCode));
+    const fileServer = http.createServer(
+      serveJs({
+        jsString: clientCode,
+        indexHtmlString: indexHtmlTemplate(httpPort)
+      })
+    );
 
     await new Promise(resolve => {
       fileServer.listen(httpPort, resolve);
@@ -77,6 +83,9 @@ async function main() {
     chalk`Then use the new global {magenta require} function to load files on your computer:`
   );
   console.log(chalk`\n{blue require}({yellow "./file.js"});\n`);
+  console.log(
+    chalk`If you want to test {magenta require} in your browser now without writing an html file and adding a script tag, open your browser to {blue http://localhost:${httpPort}/}`
+  );
 }
 
 main().catch(err => {

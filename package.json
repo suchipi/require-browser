@@ -24,10 +24,9 @@
     "eslint": "^5.8.0",
     "eslint-config-unobtrusive": "^1.2.2",
     "eslint-plugin-import": "^2.14.0",
-    "http-server": "^0.11.1",
     "prettier": "^1.14.3"
   },
   "scripts": {
-    "start": "concurrently 'node server/index.js' 'http-server .'"
+    "start": "node server/index.js"
   }
 }
