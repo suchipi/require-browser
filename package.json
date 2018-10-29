@@ -1,0 +1,23 @@
+{
+  "name": "require-browser",
+  "version": "0.1.0",
+  "description": "Node's `require` function for the browser",
+  "main": "index.js",
+  "repository": "https://github.com/suchipi/require-browser",
+  "author": "Suchipi <me@suchipi.com>",
+  "license": "MIT",
+  "dependencies": {
+    "commonjs-standalone": "0.1.2",
+    "ecstatic": "^3.3.0",
+    "fs-remote": "0.1.7",
+    "resolve": "^1.8.1"
+  },
+  "devDependencies": {
+    "eslint": "^5.8.0",
+    "eslint-config-unobtrusive": "^1.2.2",
+    "eslint-plugin-import": "^2.14.0",
+    "prettier": "^1.14.3",
+    "webpack": "^4.23.1",
+    "webpack-cli": "^3.1.2"
+  }
+}

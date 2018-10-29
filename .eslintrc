@@ -1,0 +1,8 @@
+{
+  "extends": ["unobtrusive", "unobtrusive/import"],
+  "env": {
+    "browser": true,
+    "node": true,
+    "es6": true
+  }
+}
