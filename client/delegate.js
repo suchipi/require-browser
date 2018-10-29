@@ -1,4 +1,5 @@
-// weird variable namespace because eval has access to all variables in scope here :\
+// weird variable namespace because eval has access to all variables in its parent scopes :\
+// we shadow this one out though
 const __internals__ = {
   path: require("path"),
   resolve: require("resolve"),
@@ -7,9 +8,10 @@ const __internals__ = {
 
 __internals__.delegate = {
   resolve(id, fromFilePath) {
-    if (fromFilePath === ".") {
+    if (__internals__.path.isAbsolute(id)) {
       return id;
     }
+
     return __internals__.resolve.sync(id, {
       basedir: __internals__.path.dirname(fromFilePath),
       preserveSymlinks: false,
@@ -32,6 +34,11 @@ __internals__.delegate = {
   },
 
   run(/* code, moduleEnv, filepath */) {
+    if (arguments[2].match(/\.json$/)) {
+      arguments[1].module.exports = JSON.parse(arguments[0]);
+      return;
+    }
+
     eval(
       "(function (exports, require, module, __filename, __dirname, __internals__) { " +
         arguments[0] +

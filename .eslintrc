@@ -4,5 +4,8 @@
     "browser": true,
     "node": true,
     "es6": true
+  },
+  "globals": {
+    "__SERVER_SETTINGS__": false
   }
 }

@@ -7,17 +7,27 @@
   "author": "Suchipi <me@suchipi.com>",
   "license": "MIT",
   "dependencies": {
+    "chalk": "^2.4.1",
     "commonjs-standalone": "0.1.2",
-    "ecstatic": "^3.3.0",
     "fs-remote": "0.1.7",
-    "resolve": "^1.8.1"
+    "memory-fs": "^0.4.1",
+    "node-libs-browser": "^2.1.0",
+    "ora": "^3.0.0",
+    "resolve": "^1.8.1",
+    "webpack": "^4.23.1",
+    "webpack-cli": "^3.1.2",
+    "yargs": "^12.0.2"
   },
   "devDependencies": {
+    "chokidar-cli": "^1.2.1",
+    "concurrently": "^4.0.1",
     "eslint": "^5.8.0",
     "eslint-config-unobtrusive": "^1.2.2",
     "eslint-plugin-import": "^2.14.0",
-    "prettier": "^1.14.3",
-    "webpack": "^4.23.1",
-    "webpack-cli": "^3.1.2"
+    "http-server": "^0.11.1",
+    "prettier": "^1.14.3"
+  },
+  "scripts": {
+    "start": "webpack && concurrently --kill-others 'chokidar \"**/*.js\" -i \"dist/**/*.js\" -c \"yarn webpack\"' 'node server.js' 'http-server'"
   }
 }
