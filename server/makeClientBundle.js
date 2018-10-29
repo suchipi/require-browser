@@ -2,12 +2,13 @@ const path = require("path");
 const webpack = require("webpack");
 const MemoryFs = require("memory-fs");
 
-module.exports = function makeClientBundle({ fsPort }) {
+module.exports = function makeClientBundle({ fsPort, requireRootDir }) {
   const compiler = webpack({
+    mode: "development",
     entry: path.resolve(__dirname, "..", "client", "index.js"),
     output: {
       path: "/",
-      filename: "require-browser.js",
+      filename: "bundle.js",
       libraryTarget: "umd"
     },
     resolve: {
@@ -18,7 +19,10 @@ module.exports = function makeClientBundle({ fsPort }) {
     plugins: [
       new webpack.DefinePlugin({
         __SERVER_SETTINGS__: JSON.stringify({
-          rootModuleId: path.join(process.cwd(), "fake-index.js"),
+          rootModuleId: path.join(
+            requireRootDir,
+            "fake-index-for-require-browser.js"
+          ),
           fsPort
         })
       })
@@ -32,7 +36,7 @@ module.exports = function makeClientBundle({ fsPort }) {
       if (err) {
         reject(err);
       }
-      const code = stats.compilation.assets["require-browser.js"].source();
+      const code = stats.compilation.assets["bundle.js"].source();
       resolve(code);
     });
   });

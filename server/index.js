@@ -1,3 +1,4 @@
+const path = require("path");
 const http = require("http");
 const ora = require("ora");
 const chalk = require("chalk");
@@ -16,15 +17,25 @@ const argv = require("yargs")
     default: 3002,
     describe: "Port to host the require-browser.js file from",
     type: "number"
+  })
+  .option("require-root-dir", {
+    demandOption: true,
+    default: ".",
+    describe:
+      "Directory for the global require function to resolve relative to",
+    type: "string"
   }).argv;
 
-const { fsPort, httpPort } = argv;
+let { fsPort, httpPort, requireRootDir } = argv;
+requireRootDir = path.isAbsolute(requireRootDir)
+  ? requireRootDir
+  : path.resolve(process.cwd(), requireRootDir);
 
 async function main() {
   const clientSpinner = ora("Preparing client bundle...").start();
   let clientCode;
   try {
-    clientCode = await makeClientBundle({ fsPort });
+    clientCode = await makeClientBundle({ fsPort, requireRootDir });
   } catch (err) {
     clientSpinner.fail();
     throw err;
