@@ -1,8 +1,15 @@
+// @flow
 const path = require("path");
 const webpack = require("webpack");
 const MemoryFs = require("memory-fs");
 
-module.exports = function makeClientBundle({ fsPort, requireRootDir }) {
+module.exports = function makeClientBundle({
+  fsPort,
+  requireRootDir
+}: {
+  fsPort: number,
+  requireRootDir: string
+}): Promise<string> {
   const compiler = webpack({
     mode: "development",
     entry: path.resolve(__dirname, "..", "client", "index.js"),

@@ -1,4 +1,14 @@
-module.exports = ({ jsString, indexHtmlString }) => (req, res) => {
+// @flow
+
+import type { IncomingMessage, ServerResponse } from "http";
+
+module.exports = ({
+  jsString,
+  indexHtmlString
+}: {
+  jsString: string,
+  indexHtmlString: string
+}) => (req: IncomingMessage, res: ServerResponse) => {
   if (req.url === "/require-browser.js") {
     res.writeHead(200, { "Content-Type": "text/javascript" });
     res.end(jsString, "utf-8");

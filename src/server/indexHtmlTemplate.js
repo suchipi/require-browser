@@ -1,4 +1,5 @@
-module.exports = port => `
+// @flow
+module.exports = (port: number) => `
 <html lang="en">
 
 <head>

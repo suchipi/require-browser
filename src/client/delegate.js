@@ -1,6 +1,9 @@
+// @flow
+import type { Delegate } from "commonjs-standalone";
+
 // weird variable namespace because eval has access to all variables in its parent scopes :\
 // we shadow this one out though, so it's safe to put stuff in here
-const __vars__ = {
+const __vars__: Object = {
   path: require("path"),
   resolve: require("resolve"),
   fs: require("fs"),
@@ -11,7 +14,7 @@ __vars__.builtins = {
   fs: __vars__.fs
 };
 
-__vars__.delegate = {
+__vars__.delegate = ({
   resolve(id, fromFilePath) {
     // Handle builtins
     if (__vars__.builtins[id]) {
@@ -90,6 +93,6 @@ __vars__.delegate = {
       undefined // shadow __vars__
     );
   }
-};
+}: Delegate);
 
 module.exports = __vars__.delegate;

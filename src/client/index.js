@@ -1,3 +1,4 @@
+// @flow
 const { Module } = require("commonjs-standalone");
 const delegate = require("./delegate");
 
