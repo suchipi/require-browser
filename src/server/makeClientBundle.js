@@ -7,9 +7,7 @@ const MemoryFs = require("memory-fs");
 
 module.exports = function makeClientBundle(
   config: Config
-): Promise<{
-  "require-browser.js": string
-}> {
+): Promise<{ [filename: string]: string }> {
   const compiler = webpack({
     mode: "development",
     entry: path.resolve(__dirname, "..", "client", "index.js"),
