@@ -5,7 +5,7 @@
   "main": "index.js",
   "repository": "https://github.com/suchipi/require-browser",
   "author": "Suchipi <me@suchipi.com>",
-  "bin": "server/index.js",
+  "bin": "dist/server/index.js",
   "license": "MIT",
   "dependencies": {
     "chalk": "^2.4.1",
@@ -19,14 +19,21 @@
     "yargs": "^12.0.2"
   },
   "devDependencies": {
+    "@babel/cli": "^7.1.2",
+    "@babel/core": "^7.1.2",
+    "@babel/plugin-transform-flow-strip-types": "^7.0.0",
+    "babel-eslint": "^10.0.1",
     "chokidar-cli": "^1.2.1",
     "concurrently": "^4.0.1",
     "eslint": "^5.8.0",
     "eslint-config-unobtrusive": "^1.2.2",
+    "eslint-plugin-flowtype": "^3.1.4",
     "eslint-plugin-import": "^2.14.0",
+    "flow-bin": "^0.85.0",
     "prettier": "^1.14.3"
   },
   "scripts": {
-    "start": "node server/index.js"
+    "build": "mkdir -p dist; rm -rf dist/*; babel src --out-dir dist",
+    "start": "node dist/server/index.js"
   }
 }
