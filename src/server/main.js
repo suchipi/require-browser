@@ -1,4 +1,6 @@
 // @flow
+import type { Config } from "./config";
+
 const http = require("http");
 const ora = require("ora");
 const chalk = require("chalk");
@@ -6,13 +8,12 @@ const createServer = require("fs-remote/createServer");
 const makeClientBundle = require("./makeClientBundle");
 const serveJs = require("./serveJs");
 const indexHtmlTemplate = require("./indexHtmlTemplate");
-const { fsPort, httpPort, requireRootDir } = require("./argv");
 
-async function main() {
+async function main(config: Config) {
   const clientSpinner = ora("Preparing client bundle...").start();
   let clientCode;
   try {
-    clientCode = await makeClientBundle({ fsPort, requireRootDir });
+    clientCode = await makeClientBundle(config);
   } catch (err) {
     clientSpinner.fail();
     throw err;
@@ -24,7 +25,7 @@ async function main() {
     const fsServer = createServer();
 
     await new Promise(resolve => {
-      fsServer.listen(fsPort, resolve);
+      fsServer.listen(config.fsPort, resolve);
     });
   } catch (err) {
     fsServerSpinner.fail();
@@ -37,12 +38,12 @@ async function main() {
     const fileServer = http.createServer(
       serveJs({
         jsString: clientCode,
-        indexHtmlString: indexHtmlTemplate(httpPort)
+        indexHtmlString: indexHtmlTemplate(config.httpPort)
       })
     );
 
     await new Promise(resolve => {
-      fileServer.listen(httpPort, resolve);
+      fileServer.listen(config.httpPort, resolve);
     });
   } catch (err) {
     httpServerSpinner.fail();
@@ -53,18 +54,19 @@ async function main() {
   console.log(chalk.green("\nrequire-browser server is up and running!\n"));
   console.log("Add the following script tag to your page:");
   console.log(
-    chalk`\n<{blue script src}={yellow "http://localhost:${httpPort}/require-browser.js"}></{blue script}>\n`
+    chalk`\n<{blue script src}={yellow "http://localhost:${
+      config.httpPort
+    }/require-browser.js"}></{blue script}>\n`
   );
   console.log(
     chalk`Then use the new global {magenta require} function to load files on your computer:`
   );
   console.log(chalk`\n{blue require}({yellow "./file.js"});\n`);
   console.log(
-    chalk`If you want to test {magenta require} in your browser now without writing an html file and adding a script tag, open your browser to {blue http://localhost:${httpPort}/}`
+    chalk`If you want to test {magenta require} in your browser now without writing an html file and adding a script tag, open your browser to {blue http://localhost:${
+      config.httpPort
+    }/}`
   );
 }
 
-main().catch(err => {
-  console.error(chalk.red(err.stack));
-  process.exit(1);
-});
+module.exports = main;

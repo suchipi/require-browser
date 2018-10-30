@@ -1,15 +1,11 @@
 // @flow
+import type { Config } from "./config";
+
 const path = require("path");
 const webpack = require("webpack");
 const MemoryFs = require("memory-fs");
 
-module.exports = function makeClientBundle({
-  fsPort,
-  requireRootDir
-}: {
-  fsPort: number,
-  requireRootDir: string
-}): Promise<string> {
+module.exports = function makeClientBundle(config: Config): Promise<string> {
   const compiler = webpack({
     mode: "development",
     entry: path.resolve(__dirname, "..", "client", "index.js"),
@@ -25,13 +21,7 @@ module.exports = function makeClientBundle({
     },
     plugins: [
       new webpack.DefinePlugin({
-        __SERVER_SETTINGS__: JSON.stringify({
-          rootModuleId: path.join(
-            requireRootDir,
-            "fake-index-for-require-browser.js"
-          ),
-          fsPort
-        })
+        __SERVER_SETTINGS__: JSON.stringify(config)
       })
     ]
   });

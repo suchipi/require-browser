@@ -1,10 +1,5 @@
 // @flow
-const path = require("path");
-const argv: {
-  fsPort: number,
-  httpPort: number,
-  requireRootDir: string
-} = require("yargs")
+module.exports = require("yargs")
   .option("fs-port", {
     demandOption: true,
     default: 3001,
@@ -24,10 +19,3 @@ const argv: {
       "Directory for the global require function to resolve relative to",
     type: "string"
   }).argv;
-
-let { fsPort, httpPort, requireRootDir } = argv;
-requireRootDir = path.isAbsolute(requireRootDir)
-  ? requireRootDir
-  : path.resolve(process.cwd(), requireRootDir);
-
-module.exports = { fsPort, httpPort, requireRootDir };

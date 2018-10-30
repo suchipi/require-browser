@@ -5,7 +5,7 @@
   "main": "index.js",
   "repository": "https://github.com/suchipi/require-browser",
   "author": "Suchipi <me@suchipi.com>",
-  "bin": "dist/server/index.js",
+  "bin": "dist/server/cli.js",
   "license": "MIT",
   "dependencies": {
     "chalk": "^2.4.1",
@@ -34,6 +34,6 @@
   },
   "scripts": {
     "build": "mkdir -p dist; rm -rf dist/*; babel src --out-dir dist",
-    "start": "node dist/server/index.js"
+    "start": "node dist/server/cli.js"
   }
 }

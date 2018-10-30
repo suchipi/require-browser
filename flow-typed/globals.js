@@ -1,7 +1,4 @@
 // @flow
-declare type ServerSettings = {
-  rootModuleId: string,
-  fsPort: number
-};
+import type { Config } from "../src/server/config";
 
-declare var __SERVER_SETTINGS__: ServerSettings;
+declare var __SERVER_SETTINGS__: Config;
