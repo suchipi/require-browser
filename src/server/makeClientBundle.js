@@ -5,13 +5,17 @@ const path = require("path");
 const webpack = require("webpack");
 const MemoryFs = require("memory-fs");
 
-module.exports = function makeClientBundle(config: Config): Promise<string> {
+module.exports = function makeClientBundle(
+  config: Config
+): Promise<{
+  "require-browser.js": string
+}> {
   const compiler = webpack({
     mode: "development",
     entry: path.resolve(__dirname, "..", "client", "index.js"),
     output: {
       path: "/",
-      filename: "bundle.js",
+      filename: "require-browser.js",
       libraryTarget: "umd"
     },
     resolve: {
@@ -33,8 +37,11 @@ module.exports = function makeClientBundle(config: Config): Promise<string> {
       if (err) {
         reject(err);
       }
-      const code = stats.compilation.assets["bundle.js"].source();
-      resolve(code);
+
+      const read = filename => stats.compilation.assets[filename].source();
+      resolve({
+        "require-browser.js": read("require-browser.js")
+      });
     });
   });
 };

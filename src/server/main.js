@@ -6,11 +6,11 @@ const chalk = require("chalk");
 const createServer = require("fs-remote/createServer");
 const showSpinnerForPromise = require("./showSpinnerForPromise");
 const makeClientBundle = require("./makeClientBundle");
-const serveJs = require("./serveJs");
+const httpServer = require("./httpServer");
 const indexHtmlTemplate = require("./indexHtmlTemplate");
 
 async function main(config: Config) {
-  const clientCode = await showSpinnerForPromise(
+  const clientBundle = await showSpinnerForPromise(
     "Preparing client bundle...",
     "Prepared client bundle",
     makeClientBundle(config)
@@ -26,9 +26,9 @@ async function main(config: Config) {
   );
 
   const fileServer = http.createServer(
-    serveJs({
-      jsString: clientCode,
-      indexHtmlString: indexHtmlTemplate(config.httpPort)
+    httpServer({
+      "require-browser.js": clientBundle["require-browser.js"],
+      "index.html": indexHtmlTemplate(config.httpPort)
     })
   );
   await showSpinnerForPromise(
