@@ -14,5 +14,6 @@ window.process = {
     return __SERVER_CONFIG__.rootDir;
   },
   platform: __SERVER_CONFIG__.platform,
-  env: __SERVER_CONFIG__.env
+  env: __SERVER_CONFIG__.env,
+  argv: ["node"]
 };
