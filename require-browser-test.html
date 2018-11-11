@@ -1,5 +1,3 @@
-// @flow
-module.exports = (port: number) => `
 <html lang="en">
 
 <head>
@@ -15,9 +13,8 @@ module.exports = (port: number) => `
 </head>
 
 <body>
-  <script src="http://localhost:${port}/require-browser.js"></script>
+  <script src="http://localhost:<%= port %>/require-browser.js"></script>
   <h1>Open your browser's DevTools to try out the global <span class="code">require</span> function</h1>
 </body>
 
 </html>
-`;

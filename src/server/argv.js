@@ -12,10 +12,10 @@ module.exports = require("yargs")
     describe: "Port to host the require-browser.js file from",
     type: "number"
   })
-  .option("require-root-dir", {
+  .option("root-dir", {
     demandOption: true,
     default: ".",
     describe:
-      "Directory for the global require function to resolve relative to",
+      "Directory where index.html can be found and the global require function will resolve relative to",
     type: "string"
   }).argv;

@@ -3,7 +3,7 @@ const { Module } = require("commonjs-standalone");
 const delegate = require("./delegate");
 
 const cache = {};
-const mod = new Module(__SERVER_SETTINGS__.rootModuleId, delegate, cache);
+const mod = new Module(__SERVER_CONFIG__.rootModuleId, delegate, cache);
 
 window.require = mod.env().require;
 
@@ -11,8 +11,8 @@ window.global = window;
 
 window.process = {
   cwd() {
-    return __SERVER_SETTINGS__.requireRootDir;
+    return __SERVER_CONFIG__.rootDir;
   },
-  platform: __SERVER_SETTINGS__.platform,
-  env: __SERVER_SETTINGS__.env
+  platform: __SERVER_CONFIG__.platform,
+  env: __SERVER_CONFIG__.env
 };

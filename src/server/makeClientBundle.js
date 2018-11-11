@@ -1,9 +1,11 @@
 // @flow
 import type { Config } from "./config";
 
+const fs = require("fs");
 const path = require("path");
 const webpack = require("webpack");
 const MemoryFs = require("memory-fs");
+const HtmlWebpackPlugin = require("html-webpack-plugin");
 
 module.exports = function makeClientBundle(
   config: Config
@@ -24,7 +26,17 @@ module.exports = function makeClientBundle(
     },
     plugins: [
       new webpack.DefinePlugin({
-        __SERVER_SETTINGS__: JSON.stringify(config)
+        __SERVER_CONFIG__: JSON.stringify(config)
+      }),
+      new HtmlWebpackPlugin({
+        filename: "require-browser-test.html",
+        template: path.resolve(
+          __dirname,
+          "..",
+          "..",
+          "require-browser-test.html"
+        ),
+        templateParameters: { port: config.httpPort }
       })
     ]
   });
@@ -39,7 +51,8 @@ module.exports = function makeClientBundle(
 
       const read = filename => stats.compilation.assets[filename].source();
       resolve({
-        "require-browser.js": read("require-browser.js")
+        "require-browser.js": read("require-browser.js"),
+        "require-browser-test.html": read("require-browser-test.html")
       });
     });
   });

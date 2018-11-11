@@ -6,8 +6,8 @@ const chalk = require("chalk");
 const createServer = require("fs-remote/createServer");
 const showSpinnerForPromise = require("./showSpinnerForPromise");
 const makeClientBundle = require("./makeClientBundle");
-const httpServer = require("./httpServer");
-const indexHtmlTemplate = require("./indexHtmlTemplate");
+const internalFileServer = require("./internalFileServer");
+const localFileServer = require("./localFileServer");
 
 async function main(config: Config) {
   const clientBundle = await showSpinnerForPromise(
@@ -26,10 +26,7 @@ async function main(config: Config) {
   );
 
   const fileServer = http.createServer(
-    httpServer({
-      "require-browser.js": clientBundle["require-browser.js"],
-      "index.html": indexHtmlTemplate(config.httpPort)
-    })
+    internalFileServer(clientBundle, localFileServer(config))
   );
   await showSpinnerForPromise(
     "Starting HTTP server...",
@@ -39,24 +36,32 @@ async function main(config: Config) {
     })
   );
 
+  // prettier-ignore
   console.log(chalk`
 {green require-browser server is up and running!}
 
-require-browser gives you a global {magenta require} function that loads files on your computer.
+require-browser gives your browser a global {magenta require} function that loads files on your computer.
+It behaves the same as the {magenta require} function from Node.js.
 
 To test it:
 
-1. Open {blue http://localhost:${config.httpPort}/} in your browser
+1. Open {blue http://localhost:${config.httpPort}/require-browser-test.html} in your browser
 2. Open your browser's DevTools console
 3. Use the global {magenta require} function to load a file:
 
 {magenta require}({yellow "./file.js"});
 
-To use require-browser in your own app, add the following script tag to your page:
+To use require-browser in your own app:
 
-<{blue script src}={yellow "http://localhost:${
-    config.httpPort
-  }/require-browser.js"}></{blue script}>
+1. Create an {yellow index.html} in {yellow ${config.rootDir === process.cwd() ? "this directory" : config.rootDir}}
+2. Add the following script tag to your index.html:
+
+<{blue script src}={yellow "http://localhost:${config.httpPort}/require-browser.js"}></{blue script}>
+
+3. Add a script tag for your own JavaScript code, where you can now use the {magenta require} function.
+
+{red require-browser is for development use only!
+Do not use this tool on user-facing websites; it isn't secure!}
 `);
 }
 

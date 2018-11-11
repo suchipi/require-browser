@@ -1433,5 +1433,5 @@ posix.posix = win32.posix = posix;
 win32._makeLong = win32.toNamespacedPath;
 posix._makeLong = posix.toNamespacedPath;
 
-if (__SERVER_SETTINGS__.platform === "win32") module.exports = win32;
+if (__SERVER_CONFIG__.platform === "win32") module.exports = win32;
 else module.exports = posix;

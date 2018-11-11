@@ -6,6 +6,6 @@
     "es6": true
   },
   "globals": {
-    "__SERVER_SETTINGS__": false
+    "__SERVER_CONFIG__": false
   }
 }
