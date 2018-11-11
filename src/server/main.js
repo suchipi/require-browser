@@ -43,7 +43,7 @@ async function main(config: Config) {
 require-browser gives your browser a global {magenta require} function that loads files on your computer.
 It behaves the same as the {magenta require} function from Node.js.
 
-To test it:
+{bold.bgBlack.whiteBright To test it:}
 
 1. Open {blue http://localhost:${config.httpPort}/require-browser-test.html} in your browser
 2. Open your browser's DevTools console
@@ -51,7 +51,7 @@ To test it:
 
 {magenta require}({yellow "./file.js"});
 
-To use require-browser in your own app:
+{bold.bgBlack.whiteBright To use require-browser in your own app:}
 
 1. Create an {yellow index.html} in {yellow ${config.rootDir === process.cwd() ? "this directory" : config.rootDir}}
 2. Add the following script tag to your index.html:
@@ -59,6 +59,7 @@ To use require-browser in your own app:
 <{blue script src}={yellow "http://localhost:${config.httpPort}/require-browser.js"}></{blue script}>
 
 3. Add a script tag for your own JavaScript code, where you can now use the {magenta require} function.
+4. Open {blue http://localhost:${config.httpPort}/} in your browser
 
 {red require-browser is for development use only!
 Do not use this tool on user-facing websites; it isn't secure!}
