@@ -8,4 +8,5 @@ src
 .prettierrc
 yarn.lock
 screenshot.png
+devtools-screenshot.png
 yarn-error.log
