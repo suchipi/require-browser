@@ -10,6 +10,7 @@ The `require-browser` package gives you an easy-to-use `require` function for yo
 - Can later be replaced with [Webpack](https://webpack.js.org/) or [browserify](http://browserify.org/) with few or no code changes
 - `require("fs")` works the same as in Node (via [`fs-remote`](https://www.npmjs.com/package/fs-remote))
 - `require("os")`, `require("buffer")`, and other Node builtin modules will be automatically replaced with browser-compatible shims
+- Supports lookup via `node_modules`, so you can use `npm` to manage your dependencies
 
 `require-browser` is not suitable for use in production (**it's insecure**), but makes it easy to get started developing in the browser. Once you want to run your code in production, I suggest using [Webpack](https://webpack.js.org/) to bundle your application.
 
@@ -21,7 +22,7 @@ You must have [Node.js](https://nodejs.org/) 8.12.0 or higher installed, then ru
 npx require-browser
 ```
 
-A server will start and further instructions will be printed in your terminal/command prompt.
+A server will start and further instructions will be printed in your terminal/command prompt:
 
 ## Installation
 
