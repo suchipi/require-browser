@@ -24,6 +24,8 @@ npx require-browser
 
 A server will start and further instructions will be printed in your terminal/command prompt:
 
+![Screenshot of terminal output](https://github.com/suchipi/require-browser/blob/master/screenshot.png)
+
 ## Installation
 
 If you want to install `require-browser` globally so you don't need to use `npx`, run the following in your terminal or command prompt:
