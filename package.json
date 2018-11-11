@@ -42,5 +42,16 @@
     "server": "node dist/server/cli.js",
     "server:watch": "nodemon 'dist/**/*.js' dist/server/cli.js",
     "start": "concurrently 'yarn build:watch' 'yarn server:watch'"
-  }
+  },
+  "keywords": [
+    "require",
+    "browser",
+    "commonjs",
+    "node",
+    "web browser",
+    "client",
+    "load",
+    "files",
+    "import"
+  ]
 }
