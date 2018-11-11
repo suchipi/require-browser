@@ -15,7 +15,7 @@ The `require-browser` package gives you an easy-to-use `require` function for yo
 
 ## Usage
 
-You must have [Node.js](https://nodejs.org/) 8.12.0 or higher installed, then run the following in your terminal or command prompt to test it:
+You must have [Node.js](https://nodejs.org/) 8.12.0 or higher installed, then run the following in your terminal or command prompt:
 
 ```
 npx require-browser
@@ -25,7 +25,7 @@ A server will start and further instructions will be printed in your terminal/co
 
 ## Installation
 
-If you want to install `require-browser` globally so you don't need to download it with `npx` each time you run it, run the following in your terminal or command prompt:
+If you want to install `require-browser` globally so you don't need to use `npx`, run the following in your terminal or command prompt:
 
 ```
 npm install -g require-browser
