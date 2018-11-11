@@ -15,5 +15,13 @@ window.process = {
   },
   platform: __SERVER_CONFIG__.platform,
   env: __SERVER_CONFIG__.env,
-  argv: ["node"]
+  argv: ["node"],
+  versions: {
+    node: "8.12.0"
+  },
+  nextTick(callback, ...args) {
+    setTimeout(() => {
+      callback(...args);
+    }, 0);
+  }
 };
