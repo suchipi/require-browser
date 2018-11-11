@@ -1,7 +1,6 @@
 // @flow
 import type { Config } from "./config";
 
-const fs = require("fs");
 const path = require("path");
 const webpack = require("webpack");
 const MemoryFs = require("memory-fs");
