@@ -24,7 +24,7 @@ npx require-browser
 
 A server will start and further instructions will be printed in your terminal/command prompt:
 
-![Screenshot of terminal output](https://github.com/suchipi/require-browser/blob/master/screenshot.png)
+![Screenshot of terminal output](https://user-images.githubusercontent.com/1341513/48318304-e34e3a80-e5bb-11e8-99be-6973471c33df.png)
 
 ## Installation
 
