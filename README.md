@@ -2,6 +2,8 @@
 
 The `require-browser` package gives you an easy-to-use `require` function for your browser that behaves the same as the one in [Node.js](https://nodejs.org/).
 
+![Screenshot showing require function in use in Chrome's DevTools console](https://user-images.githubusercontent.com/1341513/48318342-6ec7cb80-e5bc-11e8-8c73-b488439503b9.png)
+
 ## Features
 
 - Works without installation via `npx`
