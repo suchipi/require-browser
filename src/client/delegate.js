@@ -7,18 +7,65 @@ const __vars__: Object = {
   path: require("path"),
   resolve: require("resolve"),
   fs: require("fs"),
-  nodeLibsBrowser: require("node-libs-browser")
+  loggedWarnings: {},
+  logWarning(moduleName) {
+    if (!__vars__.loggedWarnings[moduleName]) {
+      console.warn(
+        `Providing a shim implementation for ${JSON.stringify(
+          moduleName
+        )}. Some functionality may not be present.`
+      );
+    }
+    __vars__.loggedWarnings[moduleName] = true;
+  }
 };
 
 __vars__.builtins = {
   fs: __vars__.fs,
-  path: __vars__.path
+  path: __vars__.path,
+  assert: require("assert"),
+  buffer: require("buffer"),
+  // $FlowFixMe
+  constants: require("constants"),
+  crypto: require("crypto"),
+  domain: require("domain"),
+  events: require("events"),
+  http: require("http"),
+  https: require("https"),
+  os: require("os"),
+  punycode: require("punycode"),
+  process: require("process"),
+  querystring: require("querystring"),
+  stream: require("stream"),
+  // $FlowFixMe
+  _stream_duplex: require("_stream_duplex"),
+  // $FlowFixMe
+  _stream_passthrough: require("_stream_passthrough"),
+  // $FlowFixMe
+  _stream_readable: require("_stream_readable"),
+  // $FlowFixMe
+  _stream_transform: require("_stream_transform"),
+  // $FlowFixMe
+  _stream_writable: require("_stream_writable"),
+  string_decoder: require("string_decoder"),
+  // $FlowFixMe
+  sys: require("sys"),
+  // $FlowFixMe
+  timers: require("timers"),
+  tty: require("tty"),
+  url: require("url"),
+  util: require("util"),
+  vm: require("vm"),
+  zlib: require("zlib")
 };
 
 __vars__.delegate = ({
   resolve(id, fromFilePath) {
     // Handle builtins
     if (__vars__.builtins[id]) {
+      if (id !== "fs" && id !== "path") {
+        __vars__.logWarning(id);
+      }
       return id;
     }
 
@@ -47,22 +94,7 @@ __vars__.delegate = ({
     }
 
     // Handle real files
-    try {
-      return __vars__.fs.readFileSync(filepath, "utf-8");
-    } catch (err) {
-      // Try loading a file via a node-libs-browser shim
-      const shimPath = __vars__.nodeLibsBrowser[filepath];
-      if (shimPath) {
-        console.warn(
-          `Providing a shim implementation for ${JSON.stringify(
-            filepath
-          )}. Some functionality may not be present.`
-        );
-        return __vars__.delegate.read(shimPath);
-      } else {
-        throw err;
-      }
-    }
+    return __vars__.fs.readFileSync(filepath, "utf-8");
   },
 
   run(/* code, moduleEnv, filepath */) {
