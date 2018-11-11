@@ -18,7 +18,8 @@ module.exports = function makeClientBundle(
     },
     resolve: {
       alias: {
-        fs: path.resolve(__dirname, "..", "client", "fs.shim.js")
+        fs: path.resolve(__dirname, "..", "client", "fs.shim.js"),
+        path: path.resolve(__dirname, "..", "client", "path.shim.js")
       }
     },
     plugins: [

@@ -4,7 +4,10 @@ const path = require("path");
 export type Config = {
   fsPort: number,
   httpPort: number,
-  rootModuleId: string
+  rootModuleId: string,
+  requireRootDir: string,
+  platform: string,
+  env: Object
 };
 
 function parseArgv(argv: {
@@ -22,7 +25,16 @@ function parseArgv(argv: {
     "fake-index-for-require-browser.js"
   );
 
-  return { fsPort, httpPort, rootModuleId };
+  return {
+    fsPort,
+    httpPort,
+    rootModuleId,
+    requireRootDir,
+    platform: process.platform,
+    env: {
+      NODE_ENV: process.env.NODE_ENV || "development"
+    }
+  };
 }
 
 module.exports = parseArgv;
