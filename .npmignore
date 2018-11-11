@@ -7,3 +7,5 @@ src
 .gitignore
 .prettierrc
 yarn.lock
+screenshot.png
+yarn-error.log
