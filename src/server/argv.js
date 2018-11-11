@@ -9,7 +9,7 @@ module.exports = require("yargs")
   .option("http-port", {
     demandOption: true,
     default: 3002,
-    describe: "Port to host the require-browser.js file from",
+    describe: "Port to host files over http from",
     type: "number"
   })
   .option("root-dir", {

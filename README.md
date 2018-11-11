@@ -11,7 +11,7 @@ The `require-browser` package gives you an easy-to-use `require` function for yo
 - `require("fs")` works the same as in Node (via [`fs-remote`](https://www.npmjs.com/package/fs-remote))
 - `require("os")`, `require("buffer")`, and other Node builtin modules will be automatically replaced with browser-compatible shims
 
-`require-browser` is not suitable for use in production, but makes it easy to get started developing in the browser. Once you want to run your code in production, I suggest using [Webpack](https://webpack.js.org/) to bundle your application.
+`require-browser` is not suitable for use in production (**it's insecure**), but makes it easy to get started developing in the browser. Once you want to run your code in production, I suggest using [Webpack](https://webpack.js.org/) to bundle your application.
 
 ## Usage
 
@@ -42,14 +42,15 @@ require-browser
 ```
 $ require-browser --help
 Options:
-  --help              Show help                                        [boolean]
-  --version           Show version number                              [boolean]
-  --fs-port           Port to run the fs-remote server on
+  --help       Show help                                               [boolean]
+  --version    Show version number                                     [boolean]
+  --fs-port    Port to run the fs-remote server on
                                              [number] [required] [default: 3001]
-  --http-port         Port to host the require-browser.js file from
+  --http-port  Port to host files over http from
                                              [number] [required] [default: 3002]
-  --require-root-dir  Directory for the global require function to resolve
-                      relative to             [string] [required] [default: "."]
+  --root-dir   Directory where index.html can be found and the global require
+               function will resolve relative to
+                                              [string] [required] [default: "."]
 ```
 
 ## License
