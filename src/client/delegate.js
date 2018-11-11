@@ -11,7 +11,8 @@ const __vars__: Object = {
 };
 
 __vars__.builtins = {
-  fs: __vars__.fs
+  fs: __vars__.fs,
+  path: __vars__.path
 };
 
 __vars__.delegate = ({
