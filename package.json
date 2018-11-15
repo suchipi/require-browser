@@ -1,6 +1,6 @@
 {
   "name": "require-browser",
-  "version": "0.1.0",
+  "version": "0.1.2",
   "description": "Node's `require` function for the browser",
   "main": "index.js",
   "repository": "https://github.com/suchipi/require-browser",
