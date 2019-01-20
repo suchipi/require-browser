@@ -1,3 +1,4 @@
+#!/usr/bin/env node
 // @flow
 const main = require("./main");
 const parseArgv = require("./config");

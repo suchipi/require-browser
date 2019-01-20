@@ -36,9 +36,9 @@
     "prettier": "1.15.2"
   },
   "scripts": {
-    "build": "mkdir -p dist; rm -rf dist/*; babel src --out-dir dist",
+    "build": "mkdir -p dist; rm -rf dist/*; babel src --out-dir dist; chmod +x dist/server/cli.js",
     "build:watch": "babel -w src --out-dir dist",
-    "server": "node dist/server/cli.js",
+    "server": "dist/server/cli.js",
     "server:watch": "nodemon 'dist/**/*.js' dist/server/cli.js",
     "start": "concurrently 'yarn build:watch' 'yarn server:watch'"
   },
