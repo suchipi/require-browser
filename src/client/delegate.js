@@ -21,46 +21,179 @@ const __vars__: Object = {
 };
 
 __vars__.builtins = {
-  fs: __vars__.fs,
-  path: __vars__.path,
-  assert: require("assert"),
-  buffer: require("buffer"),
-  // $FlowFixMe
-  constants: require("constants"),
-  crypto: require("crypto"),
-  domain: require("domain"),
-  events: require("events"),
-  http: require("http"),
-  https: require("https"),
-  os: require("os"),
-  punycode: require("punycode"),
-  process: require("process"),
-  querystring: require("querystring"),
-  stream: require("stream"),
-  // $FlowFixMe
-  _stream_duplex: require("_stream_duplex"),
-  // $FlowFixMe
-  _stream_passthrough: require("_stream_passthrough"),
-  // $FlowFixMe
-  _stream_readable: require("_stream_readable"),
-  // $FlowFixMe
-  _stream_transform: require("_stream_transform"),
-  // $FlowFixMe
-  _stream_writable: require("_stream_writable"),
-  string_decoder: require("string_decoder"),
-  // $FlowFixMe
-  sys: require("sys"),
-  // $FlowFixMe
-  timers: require("timers"),
-  tty: require("tty"),
-  url: require("url"),
-  util: require("util"),
-  vm: require("vm"),
-  zlib: require("zlib")
+  fs: function() {
+    return __vars__.fs;
+  },
+  path: function() {
+    return __vars__.path;
+  },
+  assert: function() {
+    return require("assert");
+  },
+  buffer: function() {
+    return require("buffer");
+  },
+  constants: function() {
+    // $FlowFixMe
+    return require("constants");
+  },
+  crypto: function() {
+    return require("crypto");
+  },
+  domain: function() {
+    return require("domain");
+  },
+  events: function() {
+    return require("events");
+  },
+  http: function() {
+    return require("http");
+  },
+  https: function() {
+    return require("https");
+  },
+  os: function() {
+    return require("os");
+  },
+  punycode: function() {
+    return require("punycode");
+  },
+  process: function() {
+    return window.process;
+  },
+  querystring: function() {
+    return require("querystring");
+  },
+  stream: function() {
+    return require("stream");
+  },
+  _stream_duplex: function() {
+    // $FlowFixMe
+    return require("_stream_duplex");
+  },
+  _stream_passthrough: function() {
+    // $FlowFixMe
+    return require("_stream_passthrough");
+  },
+  _stream_readable: function() {
+    // $FlowFixMe
+    return require("_stream_readable");
+  },
+  _stream_transform: function() {
+    // $FlowFixMe
+    return require("_stream_transform");
+  },
+  _stream_writable: function() {
+    // $FlowFixMe
+    return require("_stream_writable");
+  },
+  string_decoder: function() {
+    return require("string_decoder");
+  },
+  sys: function() {
+    // $FlowFixMe
+    return require("sys");
+  },
+  timers: function() {
+    // $FlowFixMe
+    return require("timers");
+  },
+  tty: function() {
+    return require("tty");
+  },
+  url: function() {
+    return require("url");
+  },
+  util: function() {
+    return require("util");
+  },
+  vm: function() {
+    return require("vm");
+  },
+  zlib: function() {
+    return require("zlib");
+  }
 };
 
+// require('module').builtinModules
+[
+  "async_hooks",
+  "assert",
+  "buffer",
+  "child_process",
+  "console",
+  "constants",
+  "crypto",
+  "cluster",
+  "dgram",
+  "dns",
+  "domain",
+  "events",
+  "fs",
+  "http",
+  "http2",
+  "_http_agent",
+  "_http_client",
+  "_http_common",
+  "_http_incoming",
+  "_http_outgoing",
+  "_http_server",
+  "https",
+  "inspector",
+  "module",
+  "net",
+  "os",
+  "path",
+  "perf_hooks",
+  "process",
+  "punycode",
+  "querystring",
+  "readline",
+  "repl",
+  "stream",
+  "_stream_readable",
+  "_stream_writable",
+  "_stream_duplex",
+  "_stream_transform",
+  "_stream_passthrough",
+  "_stream_wrap",
+  "string_decoder",
+  "sys",
+  "timers",
+  "tls",
+  "_tls_common",
+  "_tls_wrap",
+  "trace_events",
+  "tty",
+  "url",
+  "util",
+  "v8",
+  "vm",
+  "zlib",
+  "v8/tools/splaytree",
+  "v8/tools/codemap",
+  "v8/tools/consarray",
+  "v8/tools/csvparser",
+  "v8/tools/profile",
+  "v8/tools/profile_view",
+  "v8/tools/logreader",
+  "v8/tools/arguments",
+  "v8/tools/tickprocessor",
+  "v8/tools/SourceMap",
+  "v8/tools/tickprocessor-driver",
+  "node-inspect/lib/_inspect",
+  "node-inspect/lib/internal/inspect_client",
+  "node-inspect/lib/internal/inspect_repl"
+].forEach(function(key) {
+  if (!__vars__.builtins[key]) {
+    __vars__.builtins[key] = function() {
+      return {};
+    };
+  }
+});
+
 __vars__.delegate = ({
-  resolve(id, fromFilePath) {
+  resolve: function resolve(id, fromFilePath) {
     // Handle builtins
     if (__vars__.builtins[id]) {
       if (id !== "fs" && id !== "path") {
@@ -87,7 +220,7 @@ __vars__.delegate = ({
     });
   },
 
-  read(filepath) {
+  read: function read(filepath) {
     // Handle builtins
     if (__vars__.builtins[filepath]) {
       return ""; // Not used
@@ -97,10 +230,10 @@ __vars__.delegate = ({
     return __vars__.fs.readFileSync(filepath, "utf-8");
   },
 
-  run(/* code, moduleEnv, filepath */) {
+  run: function run(/* code, moduleEnv, filepath */) {
     // Handle builtins
     if (__vars__.builtins[arguments[2]]) {
-      arguments[1].module.exports = __vars__.builtins[arguments[2]];
+      arguments[1].module.exports = __vars__.builtins[arguments[2]]();
       return;
     }
 
